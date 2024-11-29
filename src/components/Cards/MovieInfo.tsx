@@ -7,6 +7,7 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { useFavoritesStore } from "@/store/FavoriteStore";
+import { Genre } from "@/type/types";
 const MovieCard = ({
   title,
   image,
@@ -20,7 +21,7 @@ const MovieCard = ({
   image: string;
   description: string;
   credits: { cast: string[]; director: string[] };
-  categories: string[];
+  categories: Genre[];
   id: string;
   release_date: string;
 }) => {

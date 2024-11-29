@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { MovieCard } from "../Cards";
 import { fetchMoviesData } from "@/api/movies";
 import useIntersectionObserver from "@/hook/useIntersectionObserver";
+import { Movie } from "@/type/types";
 
 function SearchPage() {
   const [page, setPage] = useState<number>(1);
@@ -35,13 +36,12 @@ function SearchPage() {
     <div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4">
         {movies &&
-          movies.map((result, index) => (
+          movies.map((result: Movie, index: number) => (
             <MovieCard
               key={`${result.id}-${index}`}
               image={result.poster_path}
               title={result.title}
               id={result.id}
-              release_date={result.release_date}
             />
           ))}
       </div>

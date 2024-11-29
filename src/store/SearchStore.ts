@@ -1,7 +1,19 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 import { createSelectors } from "./helpers";
 import type { StateCreator } from "zustand";
+import { Movie } from "@/type/types";
+
+
+const resetters: (() => void)[] = [];
+
+const initialSearchState = {
+  searchQuery: "",
+  searchResults: [],
+  totalPages: 0,
+  isAfterSearch: false,
+
+};
 
 interface SearchSlice {
   searchQuery: string;
@@ -14,14 +26,6 @@ interface SearchSlice {
   setIsAfterSearch: (isAfterSearch: boolean) => void;
 }
 
-const resetters: (() => void)[] = [];
-
-const initialSearchState: SearchSlice = {
-  searchQuery: "",
-  searchResults: [],
-  totalPages: 0,
-  isAfterSearch: false,
-};
 
 const createSearchSlice: StateCreator<SearchSlice> = (set) => {
   resetters.push(() => set(initialSearchState));
@@ -38,14 +42,19 @@ const createSearchSlice: StateCreator<SearchSlice> = (set) => {
 };
 
 export const useSearchStore = createSelectors(
-  create<SearchStore>()(
-    persist((...a) => ({
-      ...createSearchSlice(...a),
-    })),
+  create<SearchSlice>()(
+    persist(
+      (...a) => ({
+        ...createSearchSlice(...a),
+      }),
+      {
+        name: "search-store",
+        storage: createJSONStorage(() => localStorage),
+      },
+    ),
   ),
 );
 
 export const resetSearchStore = () => {
-  console.log("resetSearchStore");
   return resetters.forEach((resetter) => resetter());
 };

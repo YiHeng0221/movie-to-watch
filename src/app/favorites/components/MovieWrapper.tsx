@@ -24,7 +24,6 @@ export default function MovieWrapper() {
             id={movie.id}
             title={movie.title}
             image={movie.poster_path}
-            release_date={movie.release_date}
           />
         ))}
       </div>

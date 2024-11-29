@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useFavoritesStore } from "@/store/FavoriteStore";
 import LotteryWheel from "./LotteryWheel";
 import { UseEmblaCarouselType } from "embla-carousel-react";
+import { Credit, Movie } from "@/type/types";
 
 export default function CarouselWrapper({
   type,
@@ -33,6 +34,7 @@ export default function CarouselWrapper({
     async (type: string, movie_id?: string) => {
       switch (type) {
         case "credits":
+          if (!movie_id) return [];
           const credits = await getMovieCredits(movie_id);
           return credits.cast;
         case "topRated":
@@ -80,10 +82,12 @@ export default function CarouselWrapper({
 
     const spin = () => {
       if (currentStep < totalSteps) {
-        emblaApi.scrollNext();
+        // @ts-expect-error UseEmblaCarouselType
+        emblaApi.scrollTo(currentStep % totalSlides);
         currentStep++;
         setTimeout(spin, spinInterval);
       } else {
+        // @ts-expect-error UseEmblaCarouselType
         emblaApi.scrollTo(randomSlide);
         setIsSpinning(false);
         setSpinResultIndex(currentStep % totalSlides);
@@ -111,22 +115,22 @@ export default function CarouselWrapper({
       )}
       <Carousel
         options={{ loop: true, align: "center" }}
+        // @ts-expect-error UseEmblaCarouselType
         getEmblaApi={isFavorites && setEmblaApi}
       >
-        {slides.map((slide: Movie | Cast, index: number) => (
+        {slides.map((slide: Movie | Credit, index: number) => (
           <div key={slide.id} className="pr-8">
             {isCredits ? (
               <CreditCard
-                name={slide.name}
-                image={slide.profile_path}
-                character={slide.character}
+                name={(slide as Credit).name}
+                image={(slide as Credit).profile_path}
+                character={(slide as Credit).character}
               />
             ) : (
               <MovieCard
-                title={slide.title}
-                image={slide.poster_path}
-                id={slide.id}
-                release_date={slide.release_date}
+                title={(slide as Movie).title}
+                image={(slide as Movie).poster_path}
+                id={(slide as Movie).id}
                 className={`${index === spinResultIndex ? `${isFavorites && "scale-110"}` : `${isFavorites && "opacity-50"}`}`}
               />
             )}

@@ -4,6 +4,7 @@ import { fetchMoviesData } from "@/api/movies";
 import useIntersectionObserver from "@/hook/useIntersectionObserver";
 import { useState, useEffect } from "react";
 import { MovieCard } from "../Cards";
+import { Movie } from "@/type/types";
 
 function InfiniteScroll({ type }: { type: string }) {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -15,7 +16,7 @@ function InfiniteScroll({ type }: { type: string }) {
     const fetchData = async () => {
       setIsLoading(true);
       if (page >= 1) {
-        const res = await fetchMoviesData(type, null, page);
+        const res = await fetchMoviesData(type, undefined, page);
         setMovies((prevMovies) => [...prevMovies, ...res.results]);
         setTotalPages(res.total_pages);
       }
@@ -30,13 +31,12 @@ function InfiniteScroll({ type }: { type: string }) {
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4">
         {movies &&
-          movies.map((result, index) => (
+          movies.map((result: Movie, index: number) => (
             <MovieCard
               key={`${result.id}-${index}`}
               image={result.poster_path}
               title={result.title}
               id={result.id}
-              release_date={result.release_date}
             />
           ))}
       </div>

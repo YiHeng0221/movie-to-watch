@@ -2,12 +2,12 @@
 
 import React, { useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { EmblaOptionsType } from "embla-carousel";
+import type { EmblaCarouselType, EmblaOptionsType } from "embla-carousel";
 
 type PropType = {
   options: EmblaOptionsType;
   children: React.ReactNode;
-  getEmblaApi: (emblaApi: EmblaApi) => void;
+  getEmblaApi: (emblaApi: EmblaCarouselType | undefined) => void;
 };
 
 const Carousel: React.FC<PropType> = ({ options, children, getEmblaApi }) => {

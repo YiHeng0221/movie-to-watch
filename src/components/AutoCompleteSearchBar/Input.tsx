@@ -6,8 +6,14 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import useDebounce from "@/hook/useDebounce";
 import { fetchMoviesData } from "@/api/movies";
 import { useSearchStore, resetSearchStore } from "@/store/SearchStore";
+import { Movie } from "@/type/types";
 export default function Input() {
-  const [options, setOptions] = useState<string[]>([]);
+  const [options, setOptions] = useState<{
+    title: string;
+    id: string;
+    poster: string;
+    release_date: string;
+  }[]>([]);
   const [query, setQuery] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const debouncedInput = useDebounce(query, 1000);
@@ -18,9 +24,9 @@ export default function Input() {
     setTotalPages,
     setIsAfterSearch,
   } = useSearchStore();
-  const cache = useRef({});
+  const cache = useRef<Record<string, { options: { title: string; id: string }[]; results: Movie[]; total_pages: number }>>({});
 
-  const formatOptions = useCallback((results) => {
+  const formatOptions = useCallback((results: Movie[]) => {
     return results.slice(0, 5).map((result) => ({
       title: result.title,
       id: result.id,
@@ -30,7 +36,7 @@ export default function Input() {
   }, []);
 
   const updateStateAndCache = useCallback(
-    (query, response) => {
+    (query: string, response: { results: Movie[]; total_pages: number }) => {
       const formattedOptions = formatOptions(response.results);
       setOptions(formattedOptions);
       cache.current[query] = {
@@ -54,7 +60,7 @@ export default function Input() {
   }, [debouncedInput]);
 
   const fetchSearchResults = useCallback(
-    async (query) => {
+    async (query: string) => {
       const response = await fetchMoviesData("search", query);
       updateStateAndCache(query, response);
     },
@@ -67,12 +73,14 @@ export default function Input() {
     }
     setIsAfterSearch(true);
     setShowDropdown(false);
+    console.log("handleSearch", query);
     setSearchQuery(query);
+    console.log("handleSearch", cache.current[query].results);
     setSearchResults(cache.current[query].results);
     setTotalPages(cache.current[query].total_pages);
   }, [query, setIsAfterSearch, setSearchQuery, setSearchResults, setTotalPages, fetchSearchResults]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     resetSearchStore();
     setIsAfterSearch(false);
     setQuery(e.target.value);

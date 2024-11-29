@@ -1,7 +1,15 @@
 "use client";
 import { useFavoritesStore } from "@/store/FavoriteStore";
 import { useSearchStore } from "@/store/SearchStore";
+import { Movie } from "@/type/types";
 import { useCallback, useEffect, useMemo, useState } from "react";
+
+type OrderByOption = {
+  label: string;
+  value: string;
+  function: (movies: Movie[]) => Movie[];
+};
+
 const ORDER_BY_OPTIONS = {
   NAME_DESCENDING: {
     label: "Name descending",
@@ -32,7 +40,7 @@ const OrderBy = ({ type }: { type: "favorites" | "searchResults" }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const { favorites, setFavorites } = useFavoritesStore();
   const { searchResults, setSearchResults } = useSearchStore();
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState<OrderByOption | null>(null);
   useEffect(() => {
     console.log("favorites", favorites);
     console.log("searchResults", searchResults);

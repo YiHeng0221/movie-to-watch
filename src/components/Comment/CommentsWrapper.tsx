@@ -3,9 +3,10 @@
 import { getMovieComments } from "@/api/movies";
 import { useEffect, useState } from "react";
 import Comment from "./Comment";
+import { Comment as CommentType } from "@/type/types";
 
 const CommentsWrapper = ({ movie_id }: { movie_id: string }) => {
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<CommentType[]>([]);
   useEffect(() => {
     const getComments = async () => {
       const resp = await getMovieComments(movie_id);

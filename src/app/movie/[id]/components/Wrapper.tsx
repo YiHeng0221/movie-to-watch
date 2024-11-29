@@ -6,7 +6,7 @@ import { CommentsWrapper } from "@/components/Comment";
 import { useParams } from "next/navigation";
 
 const Wrapper = () => {
-  const { id } = useParams();
+  const { id }: { id: string } = useParams();
   return (
     <div className="flex flex-col items-center w-screen">
       <Banner movie_id={id} />

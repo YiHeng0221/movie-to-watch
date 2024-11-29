@@ -17,7 +17,7 @@ const useIntersectionObserver = (
     const handleObserver = (entities: IntersectionObserverEntry[]) => {
       const target = entities[0];
       if (target.isIntersecting && page < totalPages && !isLoading) {
-        setPage((prevPage) => prevPage + 1);
+        setPage(page + 1);
       }
     };
 
