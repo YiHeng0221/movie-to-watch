@@ -1,6 +1,6 @@
 // https://developers.themoviedb.org/3/getting-started/introduction
 
-const key = "2b014961ab68b2aa36b6c5e3707aa234";
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const baseUrl = "https://api.themoviedb.org/3";
 
@@ -14,16 +14,16 @@ export const fetchMoviesData = async (
 
     switch (type) {
       case "popular":
-        url = `${baseUrl}/movie/popular?api_key=${key}&page=${page}`;
+        url = `${baseUrl}/movie/popular?api_key=${API_KEY}&page=${page}`;
         break;
       case "topRated":
-        url = `${baseUrl}/movie/top_rated?api_key=${key}&page=${page}`;
+        url = `${baseUrl}/movie/top_rated?api_key=${API_KEY}&page=${page}`;
         break;
       case "trending":
-        url = `${baseUrl}/trending/movie/day?api_key=${key}&page=${page}`;
+        url = `${baseUrl}/trending/movie/day?api_key=${API_KEY}&page=${page}`;
         break;
       case "search":
-        url = `${baseUrl}/search/movie?query=${query}&page=${page}&api_key=${key}`;
+        url = `${baseUrl}/search/movie?query=${query}&page=${page}&api_key=${API_KEY}`;
         break;
       default:
         throw new Error("Invalid movie type");
@@ -41,7 +41,7 @@ export const fetchMoviesData = async (
 
 // movie details check
 export const getMovieDetails = async (movieId: string) => {
-  const response = await fetch(`${baseUrl}/movie/${movieId}?api_key=${key}`);
+  const response = await fetch(`${baseUrl}/movie/${movieId}?api_key=${API_KEY}`);
   const data = await response.json();
   return data;
 };
@@ -52,7 +52,7 @@ export const getMovieDetails = async (movieId: string) => {
 export const getMovieCredits = async (movieId: string) => {
   try {
     const response = await fetch(
-      `${baseUrl}/movie/${movieId}/credits?api_key=${key}`,
+      `${baseUrl}/movie/${movieId}/credits?api_key=${API_KEY}`,
     );
     const data = await response.json();
     return data;
@@ -66,7 +66,7 @@ export const getMovieCredits = async (movieId: string) => {
 export const getMovieImages = async (movieId: string) => {
   try {
     const response = await fetch(
-      `${baseUrl}/movie/${movieId}/images?api_key=${key}`,
+      `${baseUrl}/movie/${movieId}/images?api_key=${API_KEY}`,
     );
     const data = await response.json();
     return data;
@@ -81,7 +81,7 @@ export const getMovieImages = async (movieId: string) => {
 export const getMovieTrailers = async (movieId: string) => {
   try {
     const response = await fetch(
-      `${baseUrl}/movie/${movieId}/videos?api_key=${key}`,
+      `${baseUrl}/movie/${movieId}/videos?api_key=${API_KEY}`,
     );
     const data = await response.json();
     return data;
@@ -95,7 +95,7 @@ export const getMovieTrailers = async (movieId: string) => {
 export const getMovieComments = async (movieId: string) => {
   try {
     const response = await fetch(
-      `${baseUrl}/movie/${movieId}/reviews?api_key=${key}`,
+      `${baseUrl}/movie/${movieId}/reviews?api_key=${API_KEY}`,
     );
     const data = await response.json();
     return data;
@@ -109,7 +109,7 @@ export const getMovieComments = async (movieId: string) => {
 export const getMovieSimilar = async (movieId: string) => {
   try {
     const response = await fetch(
-      `${baseUrl}/movie/${movieId}/similar?api_key=${key}`,
+      `${baseUrl}/movie/${movieId}/similar?api_key=${API_KEY}`,
     );
     const data = await response.json();
     return data;
@@ -122,7 +122,7 @@ export const getMovieSimilar = async (movieId: string) => {
 // movie genres
 export const getMovieGenres = async () => {
   try {
-    const response = await fetch(`${baseUrl}/genre/movie/list?api_key=${key}`);
+    const response = await fetch(`${baseUrl}/genre/movie/list?api_key=${API_KEY}`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -135,7 +135,7 @@ export const getMovieGenres = async () => {
 export const getMovieGenre = async (genreId: string) => {
   try {
     const response = await fetch(
-      `${baseUrl}/discover/movie?with_genres=${genreId}&api_key=${key}`,
+      `${baseUrl}/discover/movie?with_genres=${genreId}&api_key=${API_KEY}`,
     );
     const data = await response.json();
     return data;
