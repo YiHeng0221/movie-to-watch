@@ -16,7 +16,7 @@ const MovieCard = ({
   return (
     <a href={`/movie/${id}`}>
       <div
-        className={`max-w-sm bg-black rounded-lg shadow w-48 relative group hover:scale-125 transition-all duration-300 ${className}`}
+        className={`max-w-sm bg-black rounded-lg shadow w-40 md:w-48 relative group hover:scale-125 transition-all duration-300 ${className}`}
       >
         <Image
           className="rounded-t-lg"
@@ -26,7 +26,7 @@ const MovieCard = ({
           height={500}
         />
         <div className="p-2">
-          <h5 className="mb-2 text-xl font-bold tracking-tight h-14 text-gray-900 dark:text-white line-clamp-2">
+          <h5 className="mb-2 text-xl font-bold tracking-tight h-14 text-white line-clamp-2">
             {title}
           </h5>
         </div>

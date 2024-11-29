@@ -103,7 +103,8 @@ const OrderBy = ({ type }: { type: "favorites" | "searchResults" }) => {
               {Object.values(ORDER_BY_OPTIONS).map((option) => (
                 <li key={option.value}>
                   <div
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    className="block px-4 py-2 hover:bg-gray-600 
+                    hover:text-white"
                     onClick={() => {
                       handleOrderBy(option.value);
                       setShowDropdown(false);

@@ -21,7 +21,7 @@ const CreditCard = ({
         height={500}
       />
       <div className="p-2">
-        <h5 className="text-md font-bold tracking-tight text-gray-900 dark:text-white line-clamp-1">
+        <h5 className="text-md font-bold tracking-tight text-white line-clamp-1">
           {name}
         </h5>
         <p className="text-white text-sm">{character}</p>
