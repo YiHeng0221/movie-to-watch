@@ -16,7 +16,7 @@ function InfiniteScroll({ type }: { type: string }) {
     const fetchData = async () => {
       setIsLoading(true);
       if (page >= 1) {
-        const res = await fetchMoviesData(type, undefined, page);
+        const res = await fetchMoviesData({ type, page });
         setMovies((prevMovies) => [...prevMovies, ...res.results]);
         setTotalPages(res.total_pages);
       }

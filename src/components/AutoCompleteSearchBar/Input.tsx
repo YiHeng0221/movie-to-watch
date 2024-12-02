@@ -61,7 +61,7 @@ export default function Input() {
 
   const fetchSearchResults = useCallback(
     async (query: string) => {
-      const response = await fetchMoviesData("search", query);
+      const response = await fetchMoviesData({ type: "search", query });
       updateStateAndCache(query, response);
     },
     [updateStateAndCache],

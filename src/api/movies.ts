@@ -1,14 +1,16 @@
 // https://developers.themoviedb.org/3/getting-started/introduction
 
+import { FetchMoviesDataParams } from "@/type/types";
+
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const baseUrl = "https://api.themoviedb.org/3";
 
-export const fetchMoviesData = async (
-  type: string,
-  query: string = "",
-  page: number = 1,
-) => {
+export const fetchMoviesData = async ({
+  type,
+  query = "",
+  page = 1,
+}: FetchMoviesDataParams) => {
   try {
     let url = "";
 

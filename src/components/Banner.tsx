@@ -1,7 +1,6 @@
 "use client";
 import {
   getImageUrl,
-  getMovieDetails,
   getOriginalImageUrl,
   getMovieCredits,
 } from "@/api/movies";
@@ -15,30 +14,24 @@ type MovieCredits = {
   director: string[];
 };
 
-const Banner = ({ movie_id }: { movie_id: string }) => {
-  const [movie, setMovie] = useState<Movie | null>(null);
-  const [backdrop, setBackdrop] = useState<string | null>(null);
+const Banner = ({ movie }: { movie: Movie }) => {
   const [credits, setCredits] = useState<MovieCredits | null>(null);
 
   useEffect(() => {
+    if (!movie) return;
     const getMovie = async () => {
-      const data = await getMovieDetails(movie_id);
-      const credits = await getMovieCredits(movie_id);
+      const credits = await getMovieCredits(movie.id);
       const cast = credits.cast.slice(0, 5).map((cast: Credit) => cast.name);
       const director = [credits.crew.find(
         (crew: { id: number; name: string; job: string }) =>
           crew.job === "Director"
       ).name];
-      setMovie(data);
-      setBackdrop(data.backdrop_path);
       setCredits({ cast, director });
     };
     getMovie();
-  }, [movie_id]);
+  }, [movie]);
 
   return (
-    movie &&
-    backdrop &&
     credits && (
       <div className="w-full flex flex-col items-center justify-center overflow-clip relative md:pt-20 pt-16 bg-gradient-to-b from-[rgba(27,27,27,0.3)] to-black ">
         <MovieInfo
@@ -47,12 +40,12 @@ const Banner = ({ movie_id }: { movie_id: string }) => {
           image={getImageUrl(movie?.poster_path, 500) ?? '' }
           credits={credits}
           categories={movie?.genres ?? []}
-          id={movie_id}
+          id={movie.id}
           release_date={movie?.release_date}
         />
 
         <Image
-          src={getOriginalImageUrl(backdrop)}
+          src={getOriginalImageUrl(movie.backdrop_path)}
           alt="backdrop"
           width={1000}
           height={1000}
