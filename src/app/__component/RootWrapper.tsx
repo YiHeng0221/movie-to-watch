@@ -26,6 +26,6 @@ const RootWrapper = () => {
       ))}
     </div>
   );
-}
+};
 
 export default RootWrapper;

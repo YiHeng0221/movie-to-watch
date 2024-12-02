@@ -43,7 +43,9 @@ export const fetchMoviesData = async ({
 
 // movie details check
 export const getMovieDetails = async (movieId: string) => {
-  const response = await fetch(`${baseUrl}/movie/${movieId}?api_key=${API_KEY}`);
+  const response = await fetch(
+    `${baseUrl}/movie/${movieId}?api_key=${API_KEY}`,
+  );
   const data = await response.json();
   return data;
 };
@@ -124,7 +126,9 @@ export const getMovieSimilar = async (movieId: string) => {
 // movie genres
 export const getMovieGenres = async () => {
   try {
-    const response = await fetch(`${baseUrl}/genre/movie/list?api_key=${API_KEY}`);
+    const response = await fetch(
+      `${baseUrl}/genre/movie/list?api_key=${API_KEY}`,
+    );
     const data = await response.json();
     return data;
   } catch (error) {
