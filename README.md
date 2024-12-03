@@ -26,11 +26,13 @@ Allen Movies 是一個電影資訊網站，使用 [TMDB API](https://developers.
 ## 開始使用
 
 1. 安裝依賴：
+
 ```bash
 npm install
 ```
 
 2. 啟動開發伺服器：
+
 ```bash
 npm run dev
 ```
@@ -77,11 +79,13 @@ Allen Movies is a movie information website powered by [TMDB API](https://develo
 ## Getting Started
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
 
 2. Start development server:
+
 ```bash
 npm run dev
 ```

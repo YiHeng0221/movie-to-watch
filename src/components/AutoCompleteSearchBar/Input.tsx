@@ -8,23 +8,30 @@ import { fetchMoviesData } from "@/api/movies";
 import { useSearchStore, resetSearchStore } from "@/store/SearchStore";
 import { Movie } from "@/type/types";
 export default function Input() {
-  const [options, setOptions] = useState<{
-    title: string;
-    id: string;
-    poster: string;
-    release_date: string;
-  }[]>([]);
+  const [options, setOptions] = useState<
+    {
+      title: string;
+      id: string;
+      poster: string;
+      release_date: string;
+    }[]
+  >([]);
   const [query, setQuery] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const debouncedInput = useDebounce(query, 1000);
 
-  const {
-    setSearchQuery,
-    setSearchResults,
-    setTotalPages,
-    setIsAfterSearch,
-  } = useSearchStore();
-  const cache = useRef<Record<string, { options: { title: string; id: string }[]; results: Movie[]; total_pages: number }>>({});
+  const { setSearchQuery, setSearchResults, setTotalPages, setIsAfterSearch } =
+    useSearchStore();
+  const cache = useRef<
+    Record<
+      string,
+      {
+        options: { title: string; id: string }[];
+        results: Movie[];
+        total_pages: number;
+      }
+    >
+  >({});
 
   const formatOptions = useCallback((results: Movie[]) => {
     return results.slice(0, 5).map((result) => ({
@@ -78,7 +85,14 @@ export default function Input() {
     console.log("handleSearch", cache.current[query].results);
     setSearchResults(cache.current[query].results);
     setTotalPages(cache.current[query].total_pages);
-  }, [query, setIsAfterSearch, setSearchQuery, setSearchResults, setTotalPages, fetchSearchResults]);
+  }, [
+    query,
+    setIsAfterSearch,
+    setSearchQuery,
+    setSearchResults,
+    setTotalPages,
+    fetchSearchResults,
+  ]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     resetSearchStore();
@@ -101,7 +115,12 @@ export default function Input() {
       resetSearchStore();
       cache.current = {};
     };
-  }, [debouncedInput, fetchSearchResults, getCachedResults, updateStateAndCache]);
+  }, [
+    debouncedInput,
+    fetchSearchResults,
+    getCachedResults,
+    updateStateAndCache,
+  ]);
 
   return (
     <div className="w-full flex flex-col items-center justify-center">

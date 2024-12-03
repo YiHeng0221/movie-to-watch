@@ -3,11 +3,12 @@
 import { fetchMoviesData } from "@/api/movies";
 import Banner from "@/components/Banner";
 import { CarouselWrapper } from "@/components/Carousel";
+import { Movie } from "@/type/types";
 import { useEffect, useState } from "react";
 
 const RootWrapper = () => {
   const sections = ["trending", "favorites", "topRated"];
-  const [randomMovie, setRandomMovie] = useState<string>("");
+  const [randomMovie, setRandomMovie] = useState<Movie | null>(null);
 
   useEffect(() => {
     const getRandomMovie = async () => {
@@ -26,6 +27,6 @@ const RootWrapper = () => {
       ))}
     </div>
   );
-}
+};
 
 export default RootWrapper;

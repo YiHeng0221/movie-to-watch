@@ -4,7 +4,6 @@ import { createSelectors } from "./helpers";
 import type { StateCreator } from "zustand";
 import { Movie } from "@/type/types";
 
-
 const resetters: (() => void)[] = [];
 
 const initialSearchState = {
@@ -12,7 +11,6 @@ const initialSearchState = {
   searchResults: [],
   totalPages: 0,
   isAfterSearch: false,
-
 };
 
 interface SearchSlice {
@@ -25,7 +23,6 @@ interface SearchSlice {
   isAfterSearch: boolean;
   setIsAfterSearch: (isAfterSearch: boolean) => void;
 }
-
 
 const createSearchSlice: StateCreator<SearchSlice> = (set) => {
   resetters.push(() => set(initialSearchState));
