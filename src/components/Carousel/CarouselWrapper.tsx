@@ -19,6 +19,7 @@ export default function CarouselWrapper({
   movie_id?: string;
 }) {
   const [slides, setSlides] = useState([]);
+  const [repeatSlides, setRepeatSlides] = useState<Movie[]>([]);
   const [emblaApi, setEmblaApi] = useState<UseEmblaCarouselType | null>(null);
   const [isSpinning, setIsSpinning] = useState(false);
   const [spinResultIndex, setSpinResultIndex] = useState<number | null>(null);
@@ -52,12 +53,37 @@ export default function CarouselWrapper({
     [favorites],
   );
 
+  const itemWidth = useMemo(() => {
+    if (typeof window !== "undefined") {
+      const width = window.innerWidth;
+      if (width < 768) return 160;
+      return 192;
+    }
+    return 192; // Default value if window is not defined
+  }, []);
+
   const handleViewMore = () => {
     const path = isFavorites ? "/favorites" : `/list/${type}`;
     router.push(path);
   };
 
   const isCredits = useMemo(() => type === "credits", [type]);
+
+  const repeatItems = useMemo(() => {
+    if (typeof window !== "undefined") {
+      return Math.ceil(window.innerWidth / itemWidth);
+    }
+    return 1; // Default value if window is not defined
+  }, [itemWidth]);
+
+  useEffect(() => {
+    if (slides.length === 0) return;
+    setRepeatSlides(() => {
+      const repeatTimes = Math.ceil(repeatItems / slides.length);
+      const repeatedSlides = Array(repeatTimes).fill(slides).flat();
+      return repeatedSlides;
+    });
+  }, [repeatItems, slides]);
 
   useEffect(() => {
     const callApi = async () => {
@@ -72,7 +98,7 @@ export default function CarouselWrapper({
     setIsSpinning(true);
     setSpinResultIndex(null);
 
-    const totalSlides = slides.length;
+    const totalSlides = repeatSlides.length;
     const randomSlide = Math.floor(Math.random() * totalSlides);
     const totalSpins = 5;
     const totalSteps = totalSlides * totalSpins + randomSlide;
@@ -95,7 +121,7 @@ export default function CarouselWrapper({
     };
 
     spin();
-  }, [emblaApi, slides]);
+  }, [emblaApi, repeatSlides.length]);
 
   return (
     <div>
@@ -121,8 +147,8 @@ export default function CarouselWrapper({
         // @ts-expect-error UseEmblaCarouselType
         getEmblaApi={isFavorites && setEmblaApi}
       >
-        {slides.map((slide: Movie | Credit, index: number) => (
-          <div key={slide.id} className="pr-8">
+        {repeatSlides.map((slide: Movie | Credit, index: number) => (
+          <div key={`${slide.id}-${index}`} className="pr-8">
             {isCredits ? (
               <CreditCard
                 name={(slide as Credit).name}
