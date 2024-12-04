@@ -27,7 +27,6 @@ const useIntersectionObserver = (
     }
 
     return () => {
-      
       if (currentLoader) observer.unobserve(currentLoader);
     };
   }, [totalPages, isLoading, page, setPage]);

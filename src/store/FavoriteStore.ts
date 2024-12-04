@@ -3,8 +3,6 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { createSelectors } from "./helpers";
 import { Movie } from "@/type/types";
 
-
-
 const resetters: (() => void)[] = [];
 
 const initialFavoritesState = {
@@ -26,14 +24,11 @@ const createFavoritesSlice: StateCreator<FavoriteSlice> = (set) => {
 
 export const useFavoritesStore = createSelectors(
   create<FavoriteSlice>()(
-    persist(
-      (...a) => ({ ...createFavoritesSlice(...a) }),
-      {
-        name: "Favorite-storage",
-        storage: createJSONStorage(() => localStorage),
-      }
-    )
-  )
+    persist((...a) => ({ ...createFavoritesSlice(...a) }), {
+      name: "Favorite-storage",
+      storage: createJSONStorage(() => localStorage),
+    }),
+  ),
 );
 
 export const resetFavoritesStore = () => {

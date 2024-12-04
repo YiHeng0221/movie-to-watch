@@ -111,7 +111,10 @@ export default function CarouselWrapper({
         )}
       </div>
       {isFavorites && favorites.length > 0 && (
-        <LotteryWheel spinWheel={spinWheel} disabled={isSpinning || favorites.length < 10} />
+        <LotteryWheel
+          spinWheel={spinWheel}
+          disabled={isSpinning || favorites.length < 10}
+        />
       )}
       <Carousel
         options={{ loop: true, align: "center" }}

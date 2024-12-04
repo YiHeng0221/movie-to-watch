@@ -1,8 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBookmark,
-  faPlayCircle,
-} from "@fortawesome/free-regular-svg-icons";
+import { faBookmark, faPlayCircle } from "@fortawesome/free-regular-svg-icons";
 import {
   faBookmark as faBookmarkSolid,
   faCircleChevronDown,
@@ -47,7 +44,13 @@ const List = ({ size, onClick }: { size: SizeProp; onClick?: () => void }) => (
   />
 );
 
-const Search = ({ size, onClick }: { size: SizeProp; onClick?: () => void }) => (
+const Search = ({
+  size,
+  onClick,
+}: {
+  size: SizeProp;
+  onClick?: () => void;
+}) => (
   <FontAwesomeIcon
     icon={faMagnifyingGlass}
     size={size}

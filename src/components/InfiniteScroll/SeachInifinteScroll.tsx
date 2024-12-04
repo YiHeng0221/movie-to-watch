@@ -21,7 +21,11 @@ function SearchPage() {
     const fetchData = async () => {
       setIsLoading(true);
       if (page > 1) {
-        const res = await fetchMoviesData({ type: "search", query: searchQuery, page });
+        const res = await fetchMoviesData({
+          type: "search",
+          query: searchQuery,
+          page,
+        });
         const newMovies = [...movies, ...res.results];
         setMovies(newMovies);
       }

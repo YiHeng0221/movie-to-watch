@@ -2,7 +2,7 @@ type Movie = {
   id: string;
   title: string;
   poster_path: string;
-  backdrop_path?: string;
+  backdrop_path: string;
   overview?: string;
   release_date: string;
   genres?: Genre[];
@@ -115,6 +115,24 @@ type FetchMoviesDataParams = {
 type ApiResponse<T> = {
   results: T[];
   total_pages: number;
-}; 
+};
 
-export type { Movie, Genre, Credit, Cast, Comment, MovieApiResponse, CarouselProps, MovieCardProps, CreditCardProps, MovieInfoProps, OrderByProps, VideoModalProps, LotteryWheelProps, SearchStore, FavoriteStore, FetchMoviesDataParams, ApiResponse };
+export type {
+  Movie,
+  Genre,
+  Credit,
+  Cast,
+  Comment,
+  MovieApiResponse,
+  CarouselProps,
+  MovieCardProps,
+  CreditCardProps,
+  MovieInfoProps,
+  OrderByProps,
+  VideoModalProps,
+  LotteryWheelProps,
+  SearchStore,
+  FavoriteStore,
+  FetchMoviesDataParams,
+  ApiResponse,
+};

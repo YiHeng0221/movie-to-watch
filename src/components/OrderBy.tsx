@@ -40,29 +40,34 @@ const OrderBy = ({ type }: { type: "favorites" | "searchResults" }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const { favorites, setFavorites } = useFavoritesStore();
   const { searchResults, setSearchResults } = useSearchStore();
-  const [selectedOption, setSelectedOption] = useState<OrderByOption | null>(null);
+  const [selectedOption, setSelectedOption] = useState<OrderByOption | null>(
+    null,
+  );
   useEffect(() => {
     console.log("favorites", favorites);
     console.log("searchResults", searchResults);
   }, [favorites, searchResults]);
-  const handleOrderBy = useCallback((value: string) => {
-    console.log(value);
-    const selectedOption =
-      ORDER_BY_OPTIONS[value as keyof typeof ORDER_BY_OPTIONS];
-    setSelectedOption(selectedOption);
-    console.log("type", type);
-    if (type === "favorites") {
-      if (!favorites) return;
-      const sortedFavorites = selectedOption.function(favorites);
-      console.log("sortedFavorites", sortedFavorites);
-      setFavorites(sortedFavorites);
-    } else {
-      if (!searchResults) return;
-      const sortedSearchResults = selectedOption.function(searchResults);
-      console.log("sortedSearchResults", sortedSearchResults);
-      setSearchResults(sortedSearchResults);
-    }
-  }, [favorites, searchResults, setFavorites, setSearchResults, type]);
+  const handleOrderBy = useCallback(
+    (value: string) => {
+      console.log(value);
+      const selectedOption =
+        ORDER_BY_OPTIONS[value as keyof typeof ORDER_BY_OPTIONS];
+      setSelectedOption(selectedOption);
+      console.log("type", type);
+      if (type === "favorites") {
+        if (!favorites) return;
+        const sortedFavorites = selectedOption.function(favorites);
+        console.log("sortedFavorites", sortedFavorites);
+        setFavorites(sortedFavorites);
+      } else {
+        if (!searchResults) return;
+        const sortedSearchResults = selectedOption.function(searchResults);
+        console.log("sortedSearchResults", sortedSearchResults);
+        setSearchResults(sortedSearchResults);
+      }
+    },
+    [favorites, searchResults, setFavorites, setSearchResults, type],
+  );
 
   const noResult = useMemo(() => {
     if (type === "favorites") {
