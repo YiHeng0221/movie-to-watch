@@ -38,7 +38,7 @@ const MovieCard = ({
     } else {
       setFavorites([
         ...favorites,
-        { id, title, poster_path: image, release_date },
+        { id, title, poster_path: image, release_date, backdrop_path: "" },
       ]);
     }
   }, [
