@@ -2,9 +2,11 @@ type CardSkeletonType = "movie" | "info" | "credit";
 
 const MovieCardSkeleton = () => {
   return (
-    <div className="w-40 md:w-48 h-96 bg-light rounded-lg shadow animate-pulse">
-      <div className="image w-full h-48 bg-gray-200 animate-pulse rounded-lg"></div>
-      <div className="info w-full h-24 bg-gray-200 animate-pulse rounded-lg"></div>
+    <div className="w-40 md:w-48 h-96 gap-4 flex flex-col">
+      <div className="image w-48 h-72 bg-gray-200 animate-pulse rounded-lg"></div>
+      <div className="info w-full h-24">
+        <div className="title h-12 w-full bg-gray-200 animate-pulse rounded-lg"></div>
+      </div>
     </div>
   );
 }
@@ -37,9 +39,9 @@ const InfoCardSkeleton = () => {
 
 const CreditCardSkeleton = () => {
   return (
-    <div className="max-w-sm animate-pulse bg-black rounded-lg shadow w-32 relative group">
+    <div className="max-w-sm w-32 gap-4 flex flex-col">
       <div className="image w-full h-48 bg-gray-200 animate-pulse rounded-lg"></div>
-      <div className="info w-full h-24 bg-gray-200 animate-pulse rounded-lg"></div>
+      <div className="info w-full h-12 bg-gray-200 animate-pulse rounded-lg"></div>
     </div>
   );
 }

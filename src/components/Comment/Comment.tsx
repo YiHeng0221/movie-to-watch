@@ -34,7 +34,7 @@ const Comment = ({
                 {author_details.name}
               </h5>
               <h6 className="text-white text-sm font-normal leading-5">
-                {date.toLocaleDateString()}
+                {date.toISOString().split('T')[0]}
               </h6>
             </div>
           </div>
