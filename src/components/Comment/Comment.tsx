@@ -15,7 +15,7 @@ const Comment = ({
   const date = new Date(created_at);
   return (
     <div
-      className={`w-full py-4 px-8 ${showMore ? "" : "max-h-56"} bg-[#3b3b3b] rounded-2xl border-[0.5px] border-gray-200 flex-col justify-start items-start gap-8 flex`}
+      className={`w-full py-4 px-8 ${showMore ? "" : "max-h-56"} bg-component rounded-2xl border-[0.5px] border-gray-200 flex-col justify-start items-start gap-8 flex`}
     >
       <div className="w-full flex-col justify-center items-center gap-2 flex">
         <div className="w-full justify-between items-center inline-flex">

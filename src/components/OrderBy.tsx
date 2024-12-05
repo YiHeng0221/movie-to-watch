@@ -2,7 +2,7 @@
 import { useFavoritesStore } from "@/store/FavoriteStore";
 import { useSearchStore } from "@/store/SearchStore";
 import { Movie } from "@/type/types";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 type OrderByOption = {
   label: string;
