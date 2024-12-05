@@ -2,10 +2,9 @@
 import Image from "next/image";
 import { BookMark, CircleDown } from "../FontAwesomeIcons";
 import { usePathname, useRouter } from "next/navigation";
-import { Suspense, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useFavoritesStore } from "@/store/FavoriteStore";
 import { Genre } from "@/type/types";
-import Skeleton from "../Skeleton";
 const MovieCard = ({
   title,
   image,
@@ -56,11 +55,7 @@ const MovieCard = ({
 
   return (
     <div className="relative flex flex-col items-center bg-[#909090] bg-opacity-30 backdrop-blur-md rounded-lg shadow max-w-sm md:flex-row md:max-w-3xl my-10 p-4">
-      <Suspense
-        fallback={
-          <Skeleton style="h-full max-h-96 object-cover w-auto" type="image" />
-        }
-      >
+     
         <Image
           className="h-full max-h-96 object-cover w-auto"
           src={image}
@@ -68,25 +63,12 @@ const MovieCard = ({
           width={1000}
           height={1000}
         />
-      </Suspense>
       <div className="flex flex-col justify-between px-4 leading-normal gap-2">
-        <Suspense
-          fallback={
-            <Skeleton
-              style="text-3xl mb-2 font-extrabold tracking-tight text-white mt-4 md:mt-0"
-              type="text"
-            />
-          }
-        >
           <h5
             className={`text-3xl mb-2 ${titleSize} font-extrabold tracking-tight text-white mt-4 md:mt-0`}
           >
             {title}
           </h5>
-        </Suspense>
-        <Suspense
-          fallback={<Skeleton style="flex flex-row gap-2" type="text" />}
-        >
           <div className="flex flex-row gap-2">
             {categories.map((category) => (
               <span
@@ -94,26 +76,15 @@ const MovieCard = ({
                 className="text-xs font-extrabold me-2 px-2.5 py-0.5 rounded-full border-2 border-white "
               >
                 {category.name}
-              </span>
-            ))}
-          </div>
-        </Suspense>
-        <Suspense
-          fallback={
-            <Skeleton style="text-white text-xl font-extrabold" type="text" />
-          }
-        >
-          <h5 className="text-white text-xl font-extrabold">{director}</h5>
-        </Suspense>
-        <Suspense
-          fallback={<Skeleton style="text-white text-xl" type="text" />}
-        >
-          <h5 className="text-white text-xl">{cast.join(", ")}</h5>
-        </Suspense>
-        <p className="mb-3 font-normal text-white line-clamp-3 md:line-clamp-none">
+          </span>
+        ))}
+      </div>
+      <h5 className="text-white text-xl font-extrabold">{director}</h5>
+      <h5 className="text-white text-xl">{cast.join(", ")}</h5>
+      <p className="mb-3 font-normal text-white line-clamp-3 md:line-clamp-none">
           {description}
         </p>
-        <div className="icon flex flex-row gap-2 justify-end">
+        <div className="icon flex flex-row gap-2 justify-end h-8">
           {isMoviePage ? (
             <div className="flex flex-row gap-4">
               <BookMark
