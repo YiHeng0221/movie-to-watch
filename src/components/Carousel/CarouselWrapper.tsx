@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect, useCallback } from "react";
 import { fetchMoviesData, getMovieCredits } from "@/api/movies";
 
 import Carousel from "./Carousel";
-import { CreditCard, MovieCard } from "@/components/Cards";
+import { CardSkeleton, CreditCard, MovieCard } from "@/components/Cards";
 import { useRouter } from "next/navigation";
 import { useFavoritesStore } from "@/store/FavoriteStore";
 import LotteryWheel from "./LotteryWheel";
@@ -147,6 +147,13 @@ export default function CarouselWrapper({
         // @ts-expect-error UseEmblaCarouselType
         getEmblaApi={isFavorites && setEmblaApi}
       >
+        {
+          !repeatSlides.length && !isFavorites && Array.from({ length: 15 }).map((_, index) => (
+            <div key={index} className="pr-8">
+              <CardSkeleton type={isCredits ? "credit" : "movie"} />
+            </div>
+          ))
+        }
         {repeatSlides.map((slide: Movie | Credit, index: number) => (
           <div key={`${slide.id}-${index}`} className="pr-8">
             {isCredits ? (

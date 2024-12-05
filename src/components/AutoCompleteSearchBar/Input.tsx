@@ -80,9 +80,7 @@ export default function Input() {
     }
     setIsAfterSearch(true);
     setShowDropdown(false);
-    console.log("handleSearch", query);
     setSearchQuery(query);
-    console.log("handleSearch", cache.current[query].results);
     setSearchResults(cache.current[query].results);
     setTotalPages(cache.current[query].total_pages);
   }, [
