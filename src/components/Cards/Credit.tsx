@@ -10,8 +10,7 @@ const CreditCard = ({
   image: string | null;
   character: string;
 }) => {
-  const url = getImageUrl(image, 500);
-  console.log(image)
+  const url = image ? getImageUrl(image, 500) : '';
   return (
     <div className="max-w-sm bg-black rounded-lg shadow w-32 relative group">
       {image ? (<Image

@@ -8,11 +8,11 @@ const MovieCard = ({
   className,
 }: {
   title: string;
-  image: string;
+  image: string | null;
   id: string;
   className?: string;
 }) => {
-  const url = getImageUrl(image, 500);
+  const url = image ? getImageUrl(image, 500) : '';
   return (
     <a href={`/movie/${id}`}>
       <div
