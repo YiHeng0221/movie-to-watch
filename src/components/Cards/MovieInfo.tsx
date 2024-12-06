@@ -60,8 +60,8 @@ const MovieCard = ({
           className="h-full max-h-96 object-cover w-auto"
           src={image}
           alt=""
-          width={1000}
-          height={1000}
+          width={256}
+          height={384}
         />
       <div className="flex flex-col justify-between px-4 leading-normal gap-2">
           <h5

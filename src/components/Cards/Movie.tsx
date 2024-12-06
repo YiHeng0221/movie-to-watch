@@ -22,8 +22,8 @@ const MovieCard = ({
           className="rounded-t-lg"
           src={url}
           alt={title}
-          width={500}
-            height={500}
+          width={192}
+            height={288}
           />
         ) : (
           <div className="rounded-t-lg min-h-48 bg-gray-black flex items-center justify-center">

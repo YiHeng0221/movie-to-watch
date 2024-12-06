@@ -17,8 +17,8 @@ const CreditCard = ({
         className="rounded-t-lg min-h-48"
         src={url}
         alt={name}
-        width={500}
-          height={500}
+        width={192}
+          height={288}
         />
       ) : (
         <div className="rounded-t-lg min-h-48 bg-gray-black flex items-center justify-center">
