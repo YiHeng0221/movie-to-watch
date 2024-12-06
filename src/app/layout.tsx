@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   description:
     "Allen Movies is a movie information website, api provided by themoviedb.org",
   icons: {
-    icon: "/logo.svg",
+    icon: "/icons/logo.svg",
   },
 };
 
