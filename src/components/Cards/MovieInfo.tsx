@@ -6,8 +6,8 @@ import { useCallback, useMemo, useState } from "react";
 import { useFavoritesStore } from "@/store/FavoriteStore";
 import { Genre } from "@/type/types";
 import { VideoModal } from "../Modal";
-const getVideoUrl = (videoSrc: string) =>
-  `https://www.youtube.com/embed/${videoSrc}`;
+const getVideoUrl = (videoSrc: string | null) =>
+  videoSrc ? `https://www.youtube.com/embed/${videoSrc}` : "";
 const MovieCard = ({
   title,
   image,
@@ -16,7 +16,7 @@ const MovieCard = ({
   categories,
   id,
   release_date,
-  videoKey,
+  videoKey = null,
 }: {
   title: string;
   image: string;
@@ -25,8 +25,9 @@ const MovieCard = ({
   categories: Genre[];
   id: string;
   release_date: string;
-  videoKey: string;
+  videoKey?: string | null;
 }) => {
+  console.log("videoKey", videoKey);
   const isMoviePage = usePathname().startsWith("/movie/");
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const { favorites, setFavorites } = useFavoritesStore();
@@ -91,7 +92,9 @@ const MovieCard = ({
           <div className="icon flex flex-row gap-2 justify-end h-8">
             {isMoviePage ? (
               <div className="flex flex-row gap-4">
-                <Play size="2xl" onClick={() => setIsVideoModalOpen(true)} />
+                {videoKey && (
+                  <Play size="2xl" onClick={() => setIsVideoModalOpen(true)} />
+                )}
                 <BookMark
                   filled={favorites.some((movie) => movie.id === id)}
                   size="2xl"
@@ -104,7 +107,7 @@ const MovieCard = ({
           </div>
         </div>
       </div>
-      {isVideoModalOpen && (
+      {isVideoModalOpen && videoKey && (
         <VideoModal
           videoSrc={getVideoUrl(videoKey)}
           onClose={() => setIsVideoModalOpen(false)}

@@ -47,6 +47,24 @@ async function fetchMovieTrailers(movie_id: string) {
   return res;
 }
 
+export async function getServerSideProps(context: { query: { movie_id?: string } }) {
+  const { movie_id } = context.query;
+  let movie;
+
+  if (movie_id) {
+    movie = await getMovieDetails(movie_id);
+  } else {
+    movie = await getRandomMovie();
+  }
+
+  return {
+    props: {
+      movie,
+    },
+  };
+}
+
+
 const Banner = ({ movie_id }: { movie_id?: string }) => {
   const moviePromise = movie_id
     ? fetchMovieDetails(movie_id)
@@ -70,7 +88,7 @@ const Banner = ({ movie_id }: { movie_id?: string }) => {
         categories={movie.genres ?? []}
         id={movie.id}
         release_date={movie.release_date}
-        videoKey={trailers ? trailers.results[0].key : ""}
+        videoKey={trailers?.results?.[0]?.key}
       />
 
       <Image
