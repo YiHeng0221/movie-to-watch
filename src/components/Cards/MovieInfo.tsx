@@ -6,7 +6,8 @@ import { useCallback, useMemo, useState } from "react";
 import { useFavoritesStore } from "@/store/FavoriteStore";
 import { Genre } from "@/type/types";
 import { VideoModal } from "../Modal";
-const getVideoUrl = (videoSrc: string) => `https://www.youtube.com/embed/${videoSrc}`;
+const getVideoUrl = (videoSrc: string) =>
+  `https://www.youtube.com/embed/${videoSrc}`;
 const MovieCard = ({
   title,
   image,
@@ -60,8 +61,7 @@ const MovieCard = ({
 
   return (
     <>
-    <div className="relative flex flex-col items-center bg-[#909090] bg-opacity-30 backdrop-blur-md rounded-lg shadow max-w-sm md:flex-row md:max-w-3xl my-10 p-4">
-     
+      <div className="relative flex flex-col items-center bg-[#909090] bg-opacity-30 backdrop-blur-md rounded-lg shadow max-w-sm md:flex-row md:max-w-3xl my-10 p-4">
         <Image
           className="h-full max-h-96 object-cover w-auto"
           src={image}
@@ -69,7 +69,7 @@ const MovieCard = ({
           width={256}
           height={384}
         />
-      <div className="flex flex-col justify-between px-4 leading-normal gap-2">
+        <div className="flex flex-col justify-between px-4 leading-normal gap-2">
           <h5
             className={`text-3xl mb-2 ${titleSize} font-extrabold tracking-tight text-white mt-4 md:mt-0`}
           >
@@ -82,31 +82,34 @@ const MovieCard = ({
                 className="text-xs font-extrabold me-2 px-2.5 py-0.5 rounded-full border-2 border-white "
               >
                 {category.name}
-          </span>
-        ))}
-      </div>
-      <h5 className="text-white text-xl font-extrabold">{director}</h5>
-      <h5 className="text-white text-xl">{cast.join(", ")}</h5>
-      <p className="mb-3 font-normal text-white">
-          {description}
-        </p>
-        <div className="icon flex flex-row gap-2 justify-end h-8">
-          {isMoviePage ? (
+              </span>
+            ))}
+          </div>
+          <h5 className="text-white text-xl font-extrabold">{director}</h5>
+          <h5 className="text-white text-xl">{cast.join(", ")}</h5>
+          <p className="mb-3 font-normal text-white">{description}</p>
+          <div className="icon flex flex-row gap-2 justify-end h-8">
+            {isMoviePage ? (
               <div className="flex flex-row gap-4">
                 <Play size="2xl" onClick={() => setIsVideoModalOpen(true)} />
-              <BookMark
-                filled={favorites.some((movie) => movie.id === id)}
-                size="2xl"
-                onClick={onClickBookMark}
+                <BookMark
+                  filled={favorites.some((movie) => movie.id === id)}
+                  size="2xl"
+                  onClick={onClickBookMark}
                 />
-            </div>
-          ) : (
-            <CircleDown size="2xl" onClick={handleRoute} />
-          )}
+              </div>
+            ) : (
+              <CircleDown size="2xl" onClick={handleRoute} />
+            )}
+          </div>
         </div>
       </div>
-    </div>
-    {isVideoModalOpen && <VideoModal videoSrc={getVideoUrl(videoKey)} onClose={() => setIsVideoModalOpen(false)} />}
+      {isVideoModalOpen && (
+        <VideoModal
+          videoSrc={getVideoUrl(videoKey)}
+          onClose={() => setIsVideoModalOpen(false)}
+        />
+      )}
     </>
   );
 };

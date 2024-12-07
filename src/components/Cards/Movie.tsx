@@ -12,17 +12,18 @@ const MovieCard = ({
   id: string;
   className?: string;
 }) => {
-  const url = image ? getImageUrl(image, 500) : '';
+  const url = image ? getImageUrl(image, 500) : "";
   return (
     <a href={`/movie/${id}`}>
       <div
         className={`max-w-sm bg-black rounded-lg shadow w-40 md:w-48 relative group hover:scale-125 transition-all duration-300 ${className}`}
       >
-        {image ? (<Image
-          className="rounded-t-lg"
-          src={url}
-          alt={title}
-          width={192}
+        {image ? (
+          <Image
+            className="rounded-t-lg"
+            src={url}
+            alt={title}
+            width={192}
             height={288}
           />
         ) : (

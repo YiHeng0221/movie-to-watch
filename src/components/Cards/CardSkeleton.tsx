@@ -9,7 +9,7 @@ const MovieCardSkeleton = () => {
       </div>
     </div>
   );
-}
+};
 
 const InfoCardSkeleton = () => {
   return (
@@ -35,7 +35,7 @@ const InfoCardSkeleton = () => {
       </div>
     </div>
   );
-}
+};
 
 const CreditCardSkeleton = () => {
   return (
@@ -44,10 +44,9 @@ const CreditCardSkeleton = () => {
       <div className="info w-full h-12 bg-gray-200 animate-pulse rounded-lg"></div>
     </div>
   );
-}
+};
 
-const CardSkeleton = ({type}: {type: CardSkeletonType}) => {
-  
+const CardSkeleton = ({ type }: { type: CardSkeletonType }) => {
   return (
     <>
       {type === "movie" && <MovieCardSkeleton />}
@@ -55,6 +54,6 @@ const CardSkeleton = ({type}: {type: CardSkeletonType}) => {
       {type === "credit" && <CreditCardSkeleton />}
     </>
   );
-}
+};
 
 export default CardSkeleton;

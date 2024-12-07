@@ -31,7 +31,10 @@ const createSearchSlice: StateCreator<SearchSlice> = (set) => {
     setSearchQuery: (query) =>
       set((state) => ({ ...state, searchQuery: query })),
     setSearchResults: (results) =>
-      set((state) => ({ ...state, searchResults: [...state.searchResults, ...results] })),
+      set((state) => ({
+        ...state,
+        searchResults: [...state.searchResults, ...results],
+      })),
     setTotalPages: (pages) => set((state) => ({ ...state, totalPages: pages })),
     setIsAfterSearch: (isAfterSearch) =>
       set((state) => ({ ...state, isAfterSearch })),

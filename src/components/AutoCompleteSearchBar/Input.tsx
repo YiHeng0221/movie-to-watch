@@ -75,7 +75,7 @@ export default function Input() {
   );
 
   const handleSearch = useCallback(async () => {
-    resetSearchStore()
+    resetSearchStore();
     if (!cache.current[query]) {
       await fetchSearchResults(query);
     }

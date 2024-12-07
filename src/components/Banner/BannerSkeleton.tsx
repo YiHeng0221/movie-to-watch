@@ -6,6 +6,6 @@ const BannerSkeleton = () => {
       <CardSkeleton type="info" />
     </div>
   );
-}
+};
 
 export default BannerSkeleton;

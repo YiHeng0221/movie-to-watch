@@ -147,13 +147,13 @@ export default function CarouselWrapper({
         // @ts-expect-error UseEmblaCarouselType
         getEmblaApi={isFavorites && setEmblaApi}
       >
-        {
-          !repeatSlides.length && !isFavorites && Array.from({ length: 15 }).map((_, index) => (
+        {!repeatSlides.length &&
+          !isFavorites &&
+          Array.from({ length: 15 }).map((_, index) => (
             <div key={index} className="pr-8">
               <CardSkeleton type={isCredits ? "credit" : "movie"} />
             </div>
-          ))
-        }
+          ))}
         {repeatSlides.map((slide: Movie | Credit, index: number) => (
           <div key={`${slide.id}-${index}`} className="pr-8">
             {isCredits ? (

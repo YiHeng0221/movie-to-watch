@@ -10,14 +10,15 @@ const CreditCard = ({
   image: string | null;
   character: string;
 }) => {
-  const url = image ? getImageUrl(image, 500) : '';
+  const url = image ? getImageUrl(image, 500) : "";
   return (
     <div className="max-w-sm bg-black rounded-lg shadow w-32 relative group">
-      {image ? (<Image
-        className="rounded-t-lg min-h-48"
-        src={url}
-        alt={name}
-        width={192}
+      {image ? (
+        <Image
+          className="rounded-t-lg min-h-48"
+          src={url}
+          alt={name}
+          width={192}
           height={288}
         />
       ) : (

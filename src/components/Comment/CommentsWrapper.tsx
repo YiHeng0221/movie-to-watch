@@ -1,4 +1,3 @@
-
 import { getMovieComments } from "@/api/movies";
 import Comment from "./Comment";
 import { Comment as CommentType } from "@/type/types";

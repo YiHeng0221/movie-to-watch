@@ -46,7 +46,9 @@ async function fetchMovieTrailers(movie_id: string) {
 }
 
 const Banner = ({ movie_id }: { movie_id?: string }) => {
-  const moviePromise = movie_id ? fetchMovieDetails(movie_id) : getRandomMovie();
+  const moviePromise = movie_id
+    ? fetchMovieDetails(movie_id)
+    : getRandomMovie();
   const movie = use(moviePromise);
   const creditsPromise = fetchCredits(movie);
   const credits = use(creditsPromise);
@@ -55,7 +57,6 @@ const Banner = ({ movie_id }: { movie_id?: string }) => {
     const trailersPromise = fetchMovieTrailers(movie_id);
     trailers = use(trailersPromise);
   }
-
 
   return (
     <div className="w-full flex flex-col items-center justify-center overflow-clip relative md:pt-20 pt-16 bg-gradient-to-b from-[rgba(27,27,27,0.3)] to-black ">
