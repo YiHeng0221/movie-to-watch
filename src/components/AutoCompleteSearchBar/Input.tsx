@@ -75,6 +75,7 @@ export default function Input() {
   );
 
   const handleSearch = useCallback(async () => {
+    resetSearchStore()
     if (!cache.current[query]) {
       await fetchSearchResults(query);
     }
@@ -93,7 +94,6 @@ export default function Input() {
   ]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    resetSearchStore();
     setIsAfterSearch(false);
     setQuery(e.target.value);
     if (e.target.value && !showDropdown) setShowDropdown(true);
@@ -110,7 +110,6 @@ export default function Input() {
       fetchSearchResults(debouncedInput);
     }
     return () => {
-      resetSearchStore();
       cache.current = {};
     };
   }, [

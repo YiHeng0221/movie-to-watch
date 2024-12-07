@@ -26,7 +26,7 @@ const MovieCard = ({
             height={288}
           />
         ) : (
-          <div className="rounded-t-lg min-h-48 bg-gray-black flex items-center justify-center">
+          <div className="rounded-t-lg h-60 md:h-72 bg-gray-black flex items-center justify-center">
             <p className="text-white text-sm">No image</p>
           </div>
         )}

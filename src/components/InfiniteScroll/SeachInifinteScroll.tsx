@@ -26,13 +26,12 @@ function SearchPage() {
           query: searchQuery,
           page,
         });
-        const newMovies = [...movies, ...res.results];
-        setMovies(newMovies);
+        setMovies(res.results);
       }
       setIsLoading(false);
     };
     fetchData();
-  }, [movies, page, searchQuery, setMovies]);
+  }, [page, setMovies]);
 
   const loader = useIntersectionObserver(totalPages, isLoading, setPage, page);
 
