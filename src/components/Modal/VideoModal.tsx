@@ -10,7 +10,7 @@ const VideoModal = ({
   return (
     <div className="w-full h-screen bg-black fixed z-50 top-0 left-0 flex justify-center items-center bg-opacity-50 backdrop-blur-md">
       <div className="absolute top-4 right-4 text-white text-2xl">
-        <X size="lg" onClick={onClose} className="" />
+        <X size="lg" onClick={onClose} />
       </div>
       <iframe
         width="1080"
