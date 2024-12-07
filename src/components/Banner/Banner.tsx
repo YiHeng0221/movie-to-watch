@@ -31,7 +31,9 @@ async function fetchCredits(movie: Movie): Promise<MovieCredits> {
 async function getRandomMovie() {
   const res = await fetchMoviesData({ type: "trending", page: 1 });
   const randomIndex = Math.floor(Math.random() * 10);
+  console.log('randomIndex', randomIndex);
   const response = res.results[randomIndex];
+  console.log('response', response);
   return response;
 }
 
