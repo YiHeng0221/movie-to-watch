@@ -4,6 +4,7 @@ import {
   getMovieCredits,
   getMovieDetails,
   fetchMoviesData,
+  getMovieTrailers,
 } from "@/api/movies";
 import { MovieInfo } from "../Cards";
 import Image from "next/image";
@@ -39,11 +40,22 @@ async function fetchMovieDetails(movie_id: string) {
   return res;
 }
 
+async function fetchMovieTrailers(movie_id: string) {
+  const res = await getMovieTrailers(movie_id);
+  return res;
+}
+
 const Banner = ({ movie_id }: { movie_id?: string }) => {
   const moviePromise = movie_id ? fetchMovieDetails(movie_id) : getRandomMovie();
   const movie = use(moviePromise);
   const creditsPromise = fetchCredits(movie);
   const credits = use(creditsPromise);
+  let trailers;
+  if (movie_id) {
+    const trailersPromise = fetchMovieTrailers(movie_id);
+    trailers = use(trailersPromise);
+  }
+
 
   return (
     <div className="w-full flex flex-col items-center justify-center overflow-clip relative md:pt-20 pt-16 bg-gradient-to-b from-[rgba(27,27,27,0.3)] to-black ">
@@ -55,6 +67,7 @@ const Banner = ({ movie_id }: { movie_id?: string }) => {
         categories={movie.genres ?? []}
         id={movie.id}
         release_date={movie.release_date}
+        videoKey={trailers ? trailers.results[0].key : ""}
       />
 
       <Image

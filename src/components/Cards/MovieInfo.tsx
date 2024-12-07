@@ -1,10 +1,12 @@
 "use client";
 import Image from "next/image";
-import { BookMark, CircleDown } from "../FontAwesomeIcons";
+import { BookMark, CircleDown, Play } from "../FontAwesomeIcons";
 import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useFavoritesStore } from "@/store/FavoriteStore";
 import { Genre } from "@/type/types";
+import { VideoModal } from "../Modal";
+const getVideoUrl = (videoSrc: string) => `https://www.youtube.com/embed/${videoSrc}`;
 const MovieCard = ({
   title,
   image,
@@ -13,6 +15,7 @@ const MovieCard = ({
   categories,
   id,
   release_date,
+  videoKey,
 }: {
   title: string;
   image: string;
@@ -21,8 +24,10 @@ const MovieCard = ({
   categories: Genre[];
   id: string;
   release_date: string;
+  videoKey: string;
 }) => {
   const isMoviePage = usePathname().startsWith("/movie/");
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const { favorites, setFavorites } = useFavoritesStore();
   const alreadyInFavorites = useMemo(
     () => favorites.some((movie) => movie.id === id),
@@ -54,6 +59,7 @@ const MovieCard = ({
   };
 
   return (
+    <>
     <div className="relative flex flex-col items-center bg-[#909090] bg-opacity-30 backdrop-blur-md rounded-lg shadow max-w-sm md:flex-row md:max-w-3xl my-10 p-4">
      
         <Image
@@ -81,17 +87,18 @@ const MovieCard = ({
       </div>
       <h5 className="text-white text-xl font-extrabold">{director}</h5>
       <h5 className="text-white text-xl">{cast.join(", ")}</h5>
-      <p className="mb-3 font-normal text-white line-clamp-3 md:line-clamp-none">
+      <p className="mb-3 font-normal text-white">
           {description}
         </p>
         <div className="icon flex flex-row gap-2 justify-end h-8">
           {isMoviePage ? (
-            <div className="flex flex-row gap-4">
+              <div className="flex flex-row gap-4">
+                <Play size="2xl" onClick={() => setIsVideoModalOpen(true)} />
               <BookMark
                 filled={favorites.some((movie) => movie.id === id)}
                 size="2xl"
                 onClick={onClickBookMark}
-              />
+                />
             </div>
           ) : (
             <CircleDown size="2xl" onClick={handleRoute} />
@@ -99,6 +106,8 @@ const MovieCard = ({
         </div>
       </div>
     </div>
+    {isVideoModalOpen && <VideoModal videoSrc={getVideoUrl(videoKey)} onClose={() => setIsVideoModalOpen(false)} />}
+    </>
   );
 };
 
