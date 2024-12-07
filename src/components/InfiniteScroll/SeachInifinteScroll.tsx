@@ -31,7 +31,7 @@ function SearchPage() {
       setIsLoading(false);
     };
     fetchData();
-  }, [page, setMovies]);
+  }, [page, setMovies, searchQuery]);
 
   const loader = useIntersectionObserver(totalPages, isLoading, setPage, page);
 
