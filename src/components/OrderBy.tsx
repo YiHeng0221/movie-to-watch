@@ -10,32 +10,38 @@ type OrderByOption = {
   function: (movies: Movie[]) => Movie[];
 };
 
+// 定義一個常數物件 ORDER_BY_OPTIONS，包含四個排序選項
 const ORDER_BY_OPTIONS = {
+  // 名稱降序排序選項
   NAME_DESCENDING: {
     label: "Name descending",
     value: "NAME_DESCENDING",
     function: (movies: Movie[]) =>
-      movies.sort((a, b) => b.title.localeCompare(a.title)),
+      movies.sort((a, b) => b.title.localeCompare(a.title)), // 進行名稱降序排列
   },
+  // 名稱升序排序選項
   NAME_ASCENDING: {
     label: "Name ascending",
     value: "NAME_ASCENDING",
     function: (movies: Movie[]) =>
-      movies.sort((a, b) => a.title.localeCompare(b.title)),
+      movies.sort((a, b) => a.title.localeCompare(b.title)), // 進行名稱升序排列
   },
+  // 發行日期降序排序選項
   RELEASE_DATE_DESCENDING: {
     label: "Release date descending",
     value: "RELEASE_DATE_DESCENDING",
     function: (movies: Movie[]) =>
-      movies.sort((a, b) => b.release_date.localeCompare(a.release_date)),
+      movies.sort((a, b) => b.release_date.localeCompare(a.release_date)), // 進行發行日期降序排列
   },
+  // 發行日期升序排序選項
   RELEASE_DATE_ASCENDING: {
     label: "Release date ascending",
     value: "RELEASE_DATE_ASCENDING",
     function: (movies: Movie[]) =>
-      movies.sort((a, b) => a.release_date.localeCompare(b.release_date)),
+      movies.sort((a, b) => a.release_date.localeCompare(b.release_date)), // 進行發行日期升序排列
   },
 };
+
 const OrderBy = ({ type }: { type: "favorites" | "searchResults" }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const { favorites, setFavorites } = useFavoritesStore();

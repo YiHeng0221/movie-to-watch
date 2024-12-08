@@ -53,6 +53,7 @@ export default function CarouselWrapper({
     [favorites],
   );
 
+  // 根據視窗寬度設置每個 carousel 的寬度
   const itemWidth = useMemo(() => {
     if (typeof window !== "undefined") {
       const width = window.innerWidth;
@@ -69,6 +70,7 @@ export default function CarouselWrapper({
 
   const isCredits = useMemo(() => type === "credits", [type]);
 
+  // 根據視窗寬度設置重複 carousel 的數量
   const repeatItems = useMemo(() => {
     if (typeof window !== "undefined") {
       return Math.ceil(window.innerWidth / itemWidth);
@@ -76,6 +78,7 @@ export default function CarouselWrapper({
     return 1; // Default value if window is not defined
   }, [itemWidth]);
 
+  // 根據視窗寬度設置重複 carousel 的數量
   useEffect(() => {
     if (slides.length === 0) return;
     setRepeatSlides(() => {
@@ -85,6 +88,7 @@ export default function CarouselWrapper({
     });
   }, [repeatItems, slides]);
 
+  // 獲取 carousel data
   useEffect(() => {
     const callApi = async () => {
       const res = await switchType(type, movie_id);
@@ -93,33 +97,51 @@ export default function CarouselWrapper({
     callApi();
   }, [type, favorites.length, switchType, movie_id]);
 
+  // spinWheel 函數用於模擬旋轉輪盤的效果
   const spinWheel = useCallback(() => {
+    // 如果 emblaApi 不存在，則直接返回，因為無法進行滾動操作
     if (!emblaApi) return;
+
+    // 設置正在旋轉的狀態為 true，並將旋轉結果索引設置為 null
     setIsSpinning(true);
     setSpinResultIndex(null);
 
+    // 獲取當前重複 carousel 的總數
     const totalSlides = repeatSlides.length;
+    // 隨機選擇一個 carousel 作為最終停留的位置
     const randomSlide = Math.floor(Math.random() * totalSlides);
+    // 設置總旋轉圈數
     const totalSpins = 5;
+    // 計算總步數，這是為了確保輪盤旋轉多圈後停在隨機選擇的 carousel 上
     const totalSteps = totalSlides * totalSpins + randomSlide;
 
+    // 初始化當前步數
     let currentStep = 0;
+    // 設置每次旋轉的間隔時間（毫秒）
     const spinInterval = 50;
 
+    // 定義 spin 函數，負責執行每一步的旋轉
     const spin = () => {
+      // 如果當前步數小於總步數，則繼續旋轉
       if (currentStep < totalSteps) {
+        // 使用 emblaApi scrollTo 滾動到當前步數對應的 carousel
         // @ts-expect-error UseEmblaCarouselType
         emblaApi.scrollTo(currentStep % totalSlides);
+        // 增加當前步數
         currentStep++;
+        // 設置下一次旋轉的定時器，沒有設定 delay 的話，會直接 scrollTo 最後一個步數
         setTimeout(spin, spinInterval);
       } else {
+        // 當旋轉完成後，滾動到最終選擇的隨機 carousel
         // @ts-expect-error UseEmblaCarouselType
         emblaApi.scrollTo(randomSlide);
+        // 設置旋轉狀態為 false，表示旋轉結束
         setIsSpinning(false);
+        // 設置旋轉結果索引為最終停留的 carousel 索引
         setSpinResultIndex(currentStep % totalSlides);
       }
     };
-
+    // 開始旋轉
     spin();
   }, [emblaApi, repeatSlides.length]);
 

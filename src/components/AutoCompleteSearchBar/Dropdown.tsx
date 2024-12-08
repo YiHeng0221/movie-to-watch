@@ -2,16 +2,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-export default function Dropdown({
-  options,
-}: {
-  options: {
-    title: string;
-    id: string;
-    poster: string;
-    release_date: string;
-  }[];
-}) {
+export default function Dropdown({ options }: { options: Movie[] }) {
   const router = useRouter();
   const handleClick = (id: string) => {
     router.push(`/movie/${id}`);
@@ -35,7 +26,7 @@ export default function Dropdown({
                 </div>
               </div>
               <Image
-                src={`https://image.tmdb.org/t/p/w500${option.poster}`}
+                src={`https://image.tmdb.org/t/p/w500${option.poster_path}`}
                 alt="poster"
                 width={16}
                 height={16}
