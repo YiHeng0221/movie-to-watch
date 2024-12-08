@@ -18,6 +18,9 @@ function InfiniteScroll({ type }: { type: string }) {
       if (page >= 1) {
         // 根據類型和頁數從 API 獲取電影數據
         const res = await fetchMoviesData({ type, page });
+        if (res.error) {
+          throw new Error(res.message);
+        }
         // 將新獲取的電影數據添加到現有的電影數據中
         setMovies((prevMovies) => [...prevMovies, ...res.results]);
         // 設定總頁數

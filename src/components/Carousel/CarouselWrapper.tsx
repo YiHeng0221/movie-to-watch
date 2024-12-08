@@ -37,12 +37,21 @@ export default function CarouselWrapper({
         case "credits":
           if (!movie_id) return [];
           const credits = await getMovieCredits(movie_id);
+          if (credits.error) {
+            throw new Error(credits.message);
+          }
           return credits.cast;
         case "topRated":
           const topRated = await fetchMoviesData({ type: "topRated" });
+          if (topRated.error) {
+            throw new Error(topRated.message);
+          }
           return topRated.results;
         case "trending":
           const trending = await fetchMoviesData({ type: "trending" });
+          if (trending.error) {
+            throw new Error(trending.message);
+          }
           return trending.results;
         case "favorites":
           return favorites;

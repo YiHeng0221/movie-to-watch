@@ -17,10 +17,10 @@ export default function Home() {
       </Suspense>
 
       {sections.map((section) => (
-        <section key={section} className="my-10">
-          <CarouselWrapper type={section} />
-        </section>
-      ))}
+          <section key={section} className="my-10">
+            <CarouselWrapper type={section} />
+          </section>
+        ))}
     </main>
   );
 }

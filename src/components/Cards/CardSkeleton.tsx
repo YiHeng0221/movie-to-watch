@@ -3,7 +3,7 @@ type CardSkeletonType = "movie" | "info" | "credit";
 const MovieCardSkeleton = () => {
   return (
     <div className="w-40 md:w-48 h-96 gap-4 flex flex-col">
-      <div className="image w-48 h-72 bg-gray-200 animate-pulse rounded-lg"></div>
+      <div className="image w-40 md:w-48 h-72 bg-gray-200 animate-pulse rounded-lg"></div>
       <div className="info w-full h-24">
         <div className="title h-12 w-full bg-gray-200 animate-pulse rounded-lg"></div>
       </div>

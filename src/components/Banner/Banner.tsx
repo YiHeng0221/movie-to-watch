@@ -18,6 +18,9 @@ type MovieCredits = {
 
 async function fetchCredits(movie: Movie): Promise<MovieCredits> {
   const credits = await getMovieCredits(movie.id);
+  if (credits.error) {
+    throw new Error(credits.message);
+  }
   const cast = credits.cast.slice(0, 5).map((cast: Credit) => cast.name);
   const director = [
     credits.crew.find(
@@ -30,6 +33,9 @@ async function fetchCredits(movie: Movie): Promise<MovieCredits> {
 
 async function getRandomMovie() {
   const res = await fetchMoviesData({ type: "trending", page: 1 });
+  if (res.error) {
+    throw new Error(res.message);
+  }
   const randomIndex = Math.floor(Math.random() * 10);
   const response = res.results[randomIndex];
   return response;
@@ -37,45 +43,32 @@ async function getRandomMovie() {
 
 async function fetchMovieDetails(movie_id: string) {
   const res = await getMovieDetails(movie_id);
+  if (res.error) {
+    throw new Error(res.message);
+  }
   return res;
 }
 
 async function fetchMovieTrailers(movie_id: string) {
   const res = await getMovieTrailers(movie_id);
-  return res;
-}
-
-export async function getServerSideProps(context: {
-  query: { movie_id?: string };
-}) {
-  const { movie_id } = context.query;
-  let movie;
-
-  if (movie_id) {
-    movie = await getMovieDetails(movie_id);
-  } else {
-    movie = await getRandomMovie();
+  if (res.error) {
+    throw new Error(res.message);
   }
-
-  return {
-    props: {
-      movie,
-    },
-  };
+  return res;
 }
 
 const Banner = ({ movie_id }: { movie_id?: string }) => {
   const moviePromise = movie_id
     ? fetchMovieDetails(movie_id)
     : getRandomMovie();
+  const creditsPromise = moviePromise.then((movie) => fetchCredits(movie));
+  const trailersPromise = movie_id
+    ? fetchMovieTrailers(movie_id)
+    : Promise.resolve(null);
+
   const movie = use(moviePromise);
-  const creditsPromise = fetchCredits(movie);
   const credits = use(creditsPromise);
-  let trailers;
-  if (movie_id) {
-    const trailersPromise = fetchMovieTrailers(movie_id);
-    trailers = use(trailersPromise);
-  }
+  const trailers = use(trailersPromise);
 
   return (
     <div className="w-full flex flex-col items-center justify-center overflow-clip relative md:pt-20 pt-16 bg-gradient-to-b from-[rgba(27,27,27,0.3)] to-black ">

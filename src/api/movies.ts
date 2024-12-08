@@ -11,34 +11,32 @@ export const fetchMoviesData = async ({
   query = "",
   page = 1,
 }: FetchMoviesDataParams) => {
-  try {
-    let url = "";
+  let url = "";
 
-    switch (type) {
-      case "popular":
-        url = `${baseUrl}/movie/popular?api_key=${API_KEY}&page=${page}`;
-        break;
-      case "topRated":
-        url = `${baseUrl}/movie/top_rated?api_key=${API_KEY}&page=${page}`;
-        break;
-      case "trending":
-        url = `${baseUrl}/trending/movie/day?api_key=${API_KEY}&page=${page}`;
-        break;
-      case "search":
-        url = `${baseUrl}/search/movie?query=${query}&page=${page}&api_key=${API_KEY}`;
-        break;
-      default:
-        throw new Error("Invalid movie type");
-    }
-
-    const response = await fetch(url);
-    const data = await response.json();
-
-    return data;
-  } catch (error) {
-    console.error("Error fetching movies data:", error);
-    return null;
+  switch (type) {
+    case "popular":
+      url = `${baseUrl}/movie/popular?api_key=${API_KEY}&page=${page}`;
+      break;
+    case "topRated":
+      url = `${baseUrl}/movie/top_rated?api_key=${API_KEY}&page=${page}`;
+      break;
+    case "trending":
+      url = `${baseUrl}/trending/movie/day?api_key=${API_KEY}&page=${page}`;
+      break;
+    case "search":
+      url = `${baseUrl}/search/movie?query=${query}&page=${page}&api_key=${API_KEY}`;
+      break;
+    default:
+      url = `${baseUrl}/movie/popular?api_key=${API_KEY}&page=${page}`;
+      break;
   }
+
+  const response = await fetch(url);
+  const data = await response.json();
+  if (!response.ok) {
+    return { error: true, message: "get movies data error" };
+  }
+  return data;
 };
 
 // movie details check
@@ -47,6 +45,9 @@ export const getMovieDetails = async (movieId: string) => {
     `${baseUrl}/movie/${movieId}?api_key=${API_KEY}`,
   );
   const data = await response.json();
+  if (!response.ok) {
+    return { error: true, message: "get movie details error" };
+  }
   return data;
 };
 
@@ -54,101 +55,87 @@ export const getMovieDetails = async (movieId: string) => {
 // cast, crew
 // crew.job === "Director"
 export const getMovieCredits = async (movieId: string) => {
-  try {
-    const response = await fetch(
-      `${baseUrl}/movie/${movieId}/credits?api_key=${API_KEY}`,
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching movie credits:", error);
-    return null;
+  const response = await fetch(
+    `${baseUrl}/movie/${movieId}/credits?api_key=${API_KEY}`,
+  );
+  const data = await response.json();
+  if (!response.ok) {
+    return { error: true, message: "get movie credits error" };
   }
+  return data;
 };
 
 // movie images check backdrop, logo, poster
 export const getMovieImages = async (movieId: string) => {
-  try {
-    const response = await fetch(
-      `${baseUrl}/movie/${movieId}/images?api_key=${API_KEY}`,
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching movie images:", error);
-    return null;
+  const response = await fetch(
+    `${baseUrl}/movie/${movieId}/images?api_key=${API_KEY}`,
+  );
+  const data = await response.json();
+  if (!response.ok) {
+    return { error: true, message: "get movie images error" };
   }
+  return data;
 };
 
 // movie trailers
 // https://www.youtube.com/watch?v={data.results[0].key}
 export const getMovieTrailers = async (movieId: string) => {
-  try {
-    const response = await fetch(
-      `${baseUrl}/movie/${movieId}/videos?api_key=${API_KEY}`,
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching movie trailers:", error);
-    return null;
+  const response = await fetch(
+    `${baseUrl}/movie/${movieId}/videos?api_key=${API_KEY}`,
+  );
+  const data = await response.json();
+  if (!response.ok) {
+    return { error: true, message: "get movie trailers error" };
   }
+  return data;
 };
 
 // movie comments check
 export const getMovieComments = async (movieId: string) => {
-  try {
-    const response = await fetch(
-      `${baseUrl}/movie/${movieId}/reviews?api_key=${API_KEY}`,
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching movie comments:", error);
-    return null;
+  const response = await fetch(
+    `${baseUrl}/movie/${movieId}/reviews?api_key=${API_KEY}`,
+  );
+  const data = await response.json();
+  if (!response.ok) {
+    return { error: true, message: "get movie comments error" };
   }
+  return data;
 };
 
 // movie similar check
 export const getMovieSimilar = async (movieId: string) => {
-  try {
-    const response = await fetch(
-      `${baseUrl}/movie/${movieId}/similar?api_key=${API_KEY}`,
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching movie similar:", error);
-    return null;
+  const response = await fetch(
+    `${baseUrl}/movie/${movieId}/similar?api_key=${API_KEY}`,
+  );
+  const data = await response.json();
+  if (!response.ok) {
+    return { error: true, message: "get movie similar error" };
   }
+  return data;
 };
 
 // movie genres
 export const getMovieGenres = async () => {
-  try {
-    const response = await fetch(
-      `${baseUrl}/genre/movie/list?api_key=${API_KEY}`,
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching movie genres:", error);
-    return null;
+  const response = await fetch(
+    `${baseUrl}/genre/movie/list?api_key=${API_KEY}`,
+  );
+  const data = await response.json();
+  if (!response.ok) {
+    return { error: true, message: "get movie genres error" };
   }
+  return data;
 };
 
 // movie genre check
 export const getMovieGenre = async (genreId: string) => {
-  try {
-    const response = await fetch(
-      `${baseUrl}/discover/movie?with_genres=${genreId}&api_key=${API_KEY}`,
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching movie genre:", error);
-    return null;
+  const response = await fetch(
+    `${baseUrl}/discover/movie?with_genres=${genreId}&api_key=${API_KEY}`,
+  );
+  const data = await response.json();
+  if (!response.ok) {
+    return { error: true, message: "get movie genre error" };
   }
+  return data;
 };
 
 // image url

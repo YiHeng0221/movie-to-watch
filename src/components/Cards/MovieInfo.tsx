@@ -12,7 +12,7 @@ const MovieCard = ({
   title,
   image,
   description,
-  credits: { cast, director },
+  credits: { cast = [], director = [] },
   categories,
   id,
   release_date,
