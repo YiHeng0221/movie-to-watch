@@ -70,13 +70,13 @@ const MovieCard = ({
           width={256}
           height={384}
         />
-        <div className="flex flex-col justify-between px-4 leading-normal gap-2">
+        <div className="flex flex-col justify-between px-4 leading-normal gap-2 w-full">
           <h5
             className={`text-3xl mb-2 ${titleSize} font-extrabold tracking-tight text-white mt-4 md:mt-0`}
           >
             {title}
           </h5>
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row gap-2 w-full flex-wrap">
             {categories.map((category) => (
               <span
                 key={category.id}
